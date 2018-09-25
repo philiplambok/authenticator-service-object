@@ -123,8 +123,7 @@ class TokenService
   end
 
   def payload 
-    decoded = decode
-    decoded[0] if decode
+    decode[0] if decode
   end
 
   def user_id
