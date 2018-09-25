@@ -27,3 +27,5 @@ Sample project to implement service object that handle authentication.
 - Error Response 
   - `{error: {message: "Sorry, you're not authenticated"}}`
 
+## License 
+Copyright &copy; 2018 Philip Lambok
