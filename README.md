@@ -50,7 +50,7 @@ Dashboard API
 
 
 ## Highlight Source Code
-### AuthService
+### Authentication Service
 -> `app/services/auth_service.rb`
 ```rb
 class AuthService 
@@ -100,7 +100,7 @@ class AuthService
 end
 ```
 
-### TokenService
+### Token Service
 -> `app/services/token_service.rb`
 ```ruby
 class TokenService
@@ -133,7 +133,7 @@ class TokenService
 end
 ```
 
-### AuthController 
+### Authentication Controller 
 -> `app/controllers/auth_controller.rb`
 ```ruby
 class AuthController < ApplicationController
