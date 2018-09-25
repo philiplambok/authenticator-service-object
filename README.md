@@ -49,7 +49,7 @@ Dashboard API
   - `{error: {message: "Sorry, you're not authenticated"}}`
 
 
-## Source Code Service Object
+## Highlight Source Code
 ### AuthService
 -> `app/services/auth_service.rb`
 ```rb
@@ -129,6 +129,53 @@ class TokenService
 
   def user_id
     payload["user_id"]
+  end
+end
+```
+
+### AuthController 
+-> `app/controllers/auth_controller.rb`
+```ruby
+class AuthController < ApplicationController
+  before_action :set_auth, only: [:create]
+
+  def create
+    if @auth.token
+      render json: { jwt: @auth.token }
+    else
+      render json: { error: {message: "Sorry, the credential is invalid"} }
+    end
+  end
+
+  private 
+  def auth_params 
+    params.require(:auth).permit(:username, :password)
+  end
+
+  def set_auth
+    @auth = AuthService.new(auth_params)
+  end
+end
+```
+
+### Dashboard Controller
+-> `app/controllers/dashboard_controller.rb`
+
+```ruby
+class DashboardController < ApplicationController
+  before_action :set_auth, only: [:index]
+
+  def index
+    if @auth.auth_header_valid?
+      render json: { success: { message: "Welcome to dashboard, #{@auth.user.username}" } } 
+    else 
+      render json: { error: { message: "Sorry, you're not authenticated" } }
+    end
+  end
+
+  private 
+  def set_auth
+    @auth = AuthService.new(auth_header: request.authorization)
   end
 end
 ```
